@@ -1,105 +1,120 @@
-// 新しいメソッドを追加
-initHorrorSounds() {
-    return {
-        flicker: "チカチカ...",
-        static: "ザザザ...",
-        footsteps: "ドクドク...",
-        whisper: "ささやき...",
-        scream: "叫び声..."
-    };
-}
-
-initHorrorEffects() {
-    // 背景色の変化やエフェクトの準備
-    this.originalBgColor = document.body.style.background;
-}
-
-triggerHorrorEffect(type) {
-    const gameScreen = this.screens.game;
-    
-    switch (type) {
-        case 'flicker':
-            this.flickerEffect(gameScreen);
-            break;
-        case 'static':
-            this.staticEffect(gameScreen);
-            break;
-        case 'bloodStain':
-            this.bloodStainEffect();
-            break;
-        case 'mirror':
-            this.mirrorEffect();
-            break;
-        case 'timeDistortion':
-            this.timeDistortionEffect();
-            break;
-        case 'finalPhase':
-            this.finalPhaseEffect();
-            break;
-        case 'general':
-            this.generalHorrorEffect();
-            break;
-    }
-}
-
-flickerEffect(element) {
-    let count = 0;
-    const interval = setInterval(() => {
-        element.style.filter = count % 2 === 0 ? 'brightness(0.3)' : 'brightness(1)';
-        count++;
-        if (count > 8) {
-            clearInterval(interval);
-            element.style.filter = 'brightness(1)';
-        }
-    }, 200);
-}
-
-staticEffect(element) {
-    element.style.filter = 'contrast(150%) saturate(0%)';
-    setTimeout(() => {
-        element.style.filter = 'none';
-    }, 2000);
-}
-
-bloodStainEffect() {
-    document.body.style.background = 'linear-gradient(135deg, #1a0000, #330000)';
-    setTimeout(() => {
-        document.body.style.background = 'linear-gradient(135deg, #1a1a2e, #16213e)';
-    }, 3000);
-}
-
-mirrorEffect() {
-    // ゲーム状態管理
 class ConvenienceStoreGame {
-constructor() {
-    this.gameState = 'start'; // start, playing, end
-    this.currentTime = 0; // ゲーム内時間（分）
-    this.health = 100;
-    this.sanity = 100;
-    this.score = 0;
-    this.events = [];
-    this.currentCustomer = null;
-    this.customerQueue = [];
-    this.workQueue = [];
-    this.isEventActive = false;
-    
-    // ホラー要素の制御
-    this.scaryLevel = 0; // 0-4で段階的に怖さを増す
-    this.yamadaCounter = 0; // ヤマダさんの出現回数
-    this.mirrorEvents = 0; // 鏡関連イベント
-    this.timeAnomalies = 0; // 時間異常の回数
-    this.bloodEvents = 0; // 血関連イベント
-    this.finalPhase = false; // 最終段階フラグ
-    
-    this.eventMessages = this.initEventMessages();
-    this.customers = this.initCustomers();
-    this.horrorSounds = this.initHorrorSounds();
-    
-    this.initElements();
-    this.bindEvents();
-    this.startGameLoop();
-    this.initHorrorEffects();
-}
+    // 新しいメソッドを追加
+    initHorrorSounds() {
+        return {
+            flicker: "チカチカ...",
+            static: "ザザザ...",
+            footsteps: "ドクドク...",
+            whisper: "ささやき...",
+            scream: "叫び声..."
+        };
+    }
+
+    initHorrorEffects() {
+        // 背景色の変化やエフェクトの準備
+        this.originalBgColor = document.body.style.background;
+    }
+
+    triggerHorrorEffect(type) {
+        const gameScreen = this.screens.game;
+
+        switch (type) {
+            case 'flicker':
+                this.flickerEffect(gameScreen);
+                break;
+            case 'static':
+                this.staticEffect(gameScreen);
+                break;
+            case 'bloodStain':
+                this.bloodStainEffect();
+                break;
+            case 'mirror':
+                this.mirrorEffect();
+                break;
+            case 'timeDistortion':
+                this.timeDistortionEffect();
+                break;
+            case 'finalPhase':
+                this.finalPhaseEffect();
+                break;
+            case 'general':
+                this.generalHorrorEffect();
+                break;
+        }
+    }
+
+    flickerEffect(element) {
+        let count = 0;
+        const interval = setInterval(() => {
+            element.style.filter = count % 2 === 0 ? 'brightness(0.3)' : 'brightness(1)';
+            count++;
+            if (count > 8) {
+                clearInterval(interval);
+                element.style.filter = 'brightness(1)';
+            }
+        }, 200);
+    }
+
+    staticEffect(element) {
+        element.style.filter = 'contrast(150%) saturate(0%)';
+        setTimeout(() => {
+            element.style.filter = 'none';
+        }, 2000);
+    }
+
+    bloodStainEffect() {
+        document.body.style.background = 'linear-gradient(135deg, #1a0000, #330000)';
+        setTimeout(() => {
+            document.body.style.background = 'linear-gradient(135deg, #1a1a2e, #16213e)';
+        }, 3000);
+    }
+
+    mirrorEffect() {
+        console.log('mirror effect triggered');
+    }
+
+    timeDistortionEffect() {
+        console.log('time distortion effect triggered');
+    }
+
+    finalPhaseEffect() {
+        console.log('final phase effect triggered');
+    }
+
+    generalHorrorEffect() {
+        console.log('general horror effect triggered');
+    }
+
+    // ゲーム状態管理
+    constructor() {
+        this.gameState = 'start'; // start, playing, end
+        this.currentTime = 0; // ゲーム内時間（分）
+        this.health = 100;
+        this.sanity = 100;
+        this.score = 0;
+        this.events = [];
+        this.currentCustomer = null;
+        this.customerQueue = [];
+        this.workQueue = [];
+        this.isEventActive = false;
+
+        // ホラー要素の制御
+        this.scaryLevel = 0; // 0-4で段階的に怖さを増す
+        this.yamadaCounter = 0; // ヤマダさんの出現回数
+        this.mirrorEvents = 0; // 鏡関連イベント
+        this.timeAnomalies = 0; // 時間異常の回数
+        this.bloodEvents = 0; // 血関連イベント
+        this.finalPhase = false; // 最終段階フラグ
+
+        this.eventMessages = this.initEventMessages();
+        this.customers = this.initCustomers();
+        this.horrorSounds = this.initHorrorSounds();
+
+        this.initElements();
+        this.bindEvents();
+        this.startGameLoop();
+        this.initHorrorEffects();
+    }
 
 initElements() {
     // 画面要素の取得
