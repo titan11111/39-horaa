@@ -1,0 +1,492 @@
+/* 基本設定 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: white;
+  overflow: hidden;
+  user-select: none;
+}
+
+#gameContainer {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+/* 画面共通設定 */
+.screen {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s ease;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* スタート画面 */
+#startScreen {
+  background: linear-gradient(135deg, #0f0f23, #16213e);
+}
+
+#startScreen h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 20px #4a90e2;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+#startScreen p {
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  line-height: 1.8;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 20px #4a90e2; }
+  to { text-shadow: 0 0 30px #4a90e2, 0 0 40px #4a90e2; }
+}
+
+/* ボタン共通 */
+button {
+  background: linear-gradient(45deg, #4a90e2, #357abd);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+button:hover {
+  background: linear-gradient(45deg, #357abd, #2968a3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(74, 144, 226, 0.3);
+}
+
+/* ゲーム画面 */
+#gameScreen {
+  justify-content: flex-start;
+  padding: 0;
+}
+
+/* ヘッダー */
+#gameHeader {
+  width: 100%;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 20px;
+  border-bottom: 2px solid #4a90e2;
+}
+
+#timeDisplay {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4a90e2;
+  text-shadow: 0 0 10px #4a90e2;
+  font-family: 'Courier New', monospace;
+}
+
+/* ステータスバー */
+.bar {
+  width: 150px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-left: 10px;
+}
+
+.bar-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 10px;
+}
+
+#healthFill {
+  background: linear-gradient(90deg, #ff4757, #ff6b7a);
+  width: 100%;
+}
+
+#sanityFill {
+  background: linear-gradient(90deg, #5f27cd, #8854d0);
+  width: 100%;
+}
+
+/* メインエリア */
+#mainArea {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#storeView {
+  flex: 1;
+  background: linear-gradient(180deg, #2c3e50, #34495e);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 客エリア */
+#customerArea {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.customer-sprite {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.speech-bubble {
+  background: white;
+  color: black;
+  padding: 15px 20px;
+  border-radius: 20px;
+  position: relative;
+  max-width: 300px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 10px solid transparent;
+  border-top-color: white;
+}
+
+/* レジエリア */
+#registerArea {
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.register {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+#registerScreen {
+  background: rgba(0, 0, 0, 0.8);
+  color: #00ff00;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-family: 'Courier New', monospace;
+  border: 2px solid #00ff00;
+  min-width: 200px;
+}
+
+/* 作業エリア */
+#workArea {
+  height: 120px;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
+  border-top: 2px solid #4a90e2;
+}
+
+.work-btn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  min-width: 120px;
+}
+
+/* イベントメッセージ */
+#eventMessage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.95);
+  border: 3px solid #ff4757;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  max-width: 80%;
+  z-index: 1000;
+}
+
+#eventText {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+/* 終了画面 */
+#endScreen {
+  background: linear-gradient(135deg, #0f0f23, #16213e);
+}
+
+#endTitle {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #4a90e2;
+}
+
+#endMessage {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* スマホ対応 */
+@media (max-width: 768px) {
+  #startScreen h1 {
+      font-size: 2rem;
+  }
+  
+  #startScreen p {
+      font-size: 1.2rem;
+  }
+  
+  #timeDisplay {
+      font-size: 1.5rem;
+  }
+  
+  .bar {
+      width: 100px;
+  }
+  
+  #gameHeader {
+      height: 70px;
+      flex-wrap: wrap;
+      padding: 10px;
+  }
+  
+  .customer-sprite {
+      font-size: 3rem;
+  }
+  
+  .speech-bubble {
+      max-width: 250px;
+      font-size: 0.9rem;
+  }
+  
+  .register {
+      font-size: 2rem;
+  }
+  
+  #workArea {
+      height: 100px;
+      flex-wrap: wrap;
+      gap: 10px;
+  }
+  
+  .work-btn {
+      flex: 1;
+      min-width: 80px;
+      font-size: 0.9rem;
+      padding: 8px 12px;
+  }
+  
+  #eventMessage {
+      max-width: 90%;
+      padding: 20px;
+  }
+  
+  #eventText {
+      font-size: 1.1rem;
+  }
+}
+
+/* ホラー演出用のCSS追加 */
+
+/* 血の効果 */
+.blood-effect {
+  background: linear-gradient(135deg, #330000, #660000) !important;
+  animation: bloodPulse 2s infinite;
+}
+
+@keyframes bloodPulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5) contrast(150%); }
+}
+
+/* 時間異常演出 */
+.time-glitch {
+  animation: glitch 0.3s infinite;
+}
+
+@keyframes glitch {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-2px) skew(-1deg); }
+  40% { transform: translateX(2px) skew(1deg); }
+  60% { transform: translateX(-1px) skew(-0.5deg); }
+  80% { transform: translateX(1px) skew(0.5deg); }
+  100% { transform: translateX(0); }
+}
+
+/* 怖い客の演出 */
+.customer-scary {
+  animation: scaryFloat 2s ease-in-out infinite, scaryGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes scaryFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes scaryGlow {
+  from { filter: brightness(1) contrast(1); text-shadow: 0 0 10px #ff0000; }
+  to { filter: brightness(1.5) contrast(150%); text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; }
+}
+
+/* ヤマダ効果 */
+.yamada-effect {
+  animation: yamadaDistort 3s infinite;
+  filter: hue-rotate(180deg);
+}
+
+@keyframes yamadaDistort {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(1deg); }
+  50% { transform: scale(0.9) rotate(-1deg); }
+  75% { transform: scale(1.05) rotate(0.5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* 最終段階の背景 */
+.final-phase {
+  background: linear-gradient(135deg, #000000, #1a0000, #330000, #000000) !important;
+  background-size: 400% 400% !important;
+  animation: finalBackground 5s ease infinite, finalPulse 2s infinite;
+}
+
+@keyframes finalBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes finalPulse {
+  0%, 100% { filter: brightness(0.8) contrast(120%); }
+  50% { filter: brightness(1.2) contrast(150%) saturate(0%); }
+}
+
+/* 鏡効果 */
+.mirror-effect {
+  animation: mirrorDistort 1s ease-in-out;
+}
+
+@keyframes mirrorDistort {
+  0% { transform: scaleX(1); }
+  25% { transform: scaleX(-1) rotateY(180deg); }
+  50% { transform: scaleX(1) rotateY(360deg); }
+  75% { transform: scaleX(-1) rotateY(540deg); }
+  100% { transform: scaleX(1) rotateY(720deg); }
+}
+
+/* 静電気効果 */
+.static-effect {
+  animation: staticNoise 0.1s infinite;
+}
+
+@keyframes staticNoise {
+  0% { filter: contrast(150%) brightness(1.2) saturate(0%) hue-rotate(0deg); }
+  25% { filter: contrast(200%) brightness(0.8) saturate(50%) hue-rotate(90deg); }
+  50% { filter: contrast(100%) brightness(1.5) saturate(0%) hue-rotate(180deg); }
+  75% { filter: contrast(180%) brightness(0.6) saturate(30%) hue-rotate(270deg); }
+  100% { filter: contrast(150%) brightness(1.2) saturate(0%) hue-rotate(360deg); }
+}
+
+/* SAN値低下時のUI変化 */
+.low-sanity {
+  animation: insanityShake 0.5s infinite;
+}
+
+@keyframes insanityShake {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  10% { transform: translateX(-1px) translateY(-1px); }
+  20% { transform: translateX(1px) translateY(1px); }
+  30% { transform: translateX(-1px) translateY(1px); }
+  40% { transform: translateX(1px) translateY(-1px); }
+  50% { transform: translateX(-2px) translateY(0); }
+  60% { transform: translateX(2px) translateY(0); }
+  70% { transform: translateX(0) translateY(-2px); }
+  80% { transform: translateX(0) translateY(2px); }
+  90% { transform: translateX(-1px) translateY(-1px); }
+}
+
+/* 体力危険時の警告 */
+.critical-health {
+  animation: criticalFlash 1s infinite;
+}
+
+@keyframes criticalFlash {
+  0%, 100% { background: linear-gradient(90deg, #ff3742, #ff5722); }
+  50% { background: linear-gradient(90deg, #ffffff, #ff9999); }
+}
+
+/* イベントメッセージの怖い演出 */
+#eventMessage.horror {
+  border-color: #ff0000;
+  background: rgba(10, 0, 0, 0.98);
+  box-shadow: 0 0 30px #ff0000, inset 0 0 20px rgba(255, 0, 0, 0.3);
+  animation: horrorMessagePulse 2s infinite;
+}
+
+@keyframes horrorMessagePulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.02); filter: brightness(1.2) contrast(120%); }
+}
+
+/* 時計の狂い演出 */
+.time-distortion {
+  animation: timeWarp 2s infinite;
+  color: #ff0000 !important;
+}
+
+@keyframes timeWarp {
+  0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg); }
+  25% { transform: scale(1.2) rotate(5deg); filter: hue-rotate(90deg); }
+  50% { transform: scale(0.8) rotate(-5deg); filter: hue-rotate(180deg); }
+  75% { transform: scale(1.1) rotate(3deg); filter: hue-rotate(270deg); }
+  100% { transform: scale(1) rotate(0deg); filter: hue-rotate(360deg); }
+}
