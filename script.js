@@ -143,6 +143,11 @@ initElements() {
         eventOk: document.getElementById('eventOk'),
         workBtns: document.querySelectorAll('.work-btn')
     };
+
+    this.audio = {
+        bgm: document.getElementById('bgm'),
+        sfx: document.getElementById('sfx')
+    };
 }
 
 initEventMessages() {
@@ -258,6 +263,7 @@ startGame() {
     this.showScreen('game');
     this.updateDisplay();
     this.scheduleRandomEvents();
+    this.audio.bgm.play();
 }
 
 resetGame() {
@@ -270,6 +276,8 @@ resetGame() {
     this.currentCustomer = null;
     this.gameState = 'start';
     this.showScreen('start');
+    this.audio.bgm.pause();
+    this.audio.bgm.currentTime = 0;
     this.gameElements.registerScreen.textContent = "ようこそ！";
     this.hideCustomer();
 }
