@@ -7,7 +7,10 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  background-image: url("images/konbini");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: white;
   overflow: hidden;
   user-select: none;
