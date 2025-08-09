@@ -544,6 +544,8 @@ class ConvenienceStoreGame {
         this.gameState = 'playing';
         this.showScreen('game');
         this.updateDisplay();
+        this.audio.bgm.currentTime = 0;
+        this.audio.bgm.play();
         this.scheduleRandomEvents();
     }
 
@@ -567,6 +569,9 @@ class ConvenienceStoreGame {
         document.body.style.background = '';
         document.body.style.filter = '';
         document.body.className = '';
+
+        this.audio.bgm.pause();
+        this.audio.bgm.currentTime = 0;
     }
 
     showScreen(screenName) {
