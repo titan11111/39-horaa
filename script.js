@@ -98,6 +98,9 @@ class ConvenienceStoreGame {
         this.workQueue = [];
         this.isEventActive = false;
 
+        // ゲーム内時間の進行速度（倍速）
+        this.timeMultiplier = 3;
+
         // ホラー要素の制御
         this.scaryLevel = 0; // 0-4で段階的に怖さを増す
         this.yamadaCounter = 0; // ヤマダさんの出現回数
@@ -317,7 +320,7 @@ startGameLoop() {
             this.checkGamePhase();
             this.checkGameEnd();
         }
-    }, 10000); // 10秒 = ゲーム内1分
+    }, 10000 / this.timeMultiplier); // 倍速に応じて時間経過を調整
 }
 
 checkGamePhase() {
@@ -357,7 +360,7 @@ checkGamePhase() {
 scheduleRandomEvents() {
     const scheduleNext = () => {
         if (this.gameState === 'playing') {
-            const delay = Math.random() * 30000 + 15000; // 15-45秒
+            const delay = (Math.random() * 30000 + 15000) / this.timeMultiplier; // 倍速に合わせてイベント間隔を調整
             setTimeout(() => {
                 this.triggerRandomEvent();
                 scheduleNext();
@@ -426,7 +429,7 @@ showCustomer(customer) {
         if (this.currentCustomer === customer) {
             this.hideCustomer();
         }
-    }, 8000);
+    }, 8000 / this.timeMultiplier);
 }
 
 hideCustomer() {
@@ -441,7 +444,7 @@ triggerWorkEvent() {
     
     setTimeout(() => {
         this.gameElements.registerScreen.textContent = "お疲れ様です";
-    }, 3000);
+    }, 3000 / this.timeMultiplier);
 }
 
 triggerStoryEvent() {
